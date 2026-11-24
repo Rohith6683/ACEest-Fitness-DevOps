@@ -151,3 +151,37 @@ independently establish continuous zero downtime.
 
 ## Repository
 https://github.com/Rohith6683/ACEest-Fitness-DevOps
+
+## Shadow Deployment
+
+Shadow deployment is implemented using an NGINX reverse
+proxy with Kubernetes services and traffic mirroring.
+
+- Production environment: ACEest Fitness v1.0
+- Shadow candidate environment: ACEest Fitness v1.1
+- NGINX image: nginx:1.28-alpine
+- Configuration: k8s/shadow.yaml
+- NodePort: 30083
+
+### Deployment Commands
+
+    kubectl apply -f k8s/shadow.yaml
+    kubectl rollout status deployment/aceest-shadow-proxy
+    curl http://$(minikube ip):30083/health
+
+### Traffic Mirroring Results
+
+| Metric | Result |
+|---|---:|
+| Total client requests | 100 |
+| Production backend requests | 100 |
+| Shadow candidate backend requests | 100 |
+| Production responses to clients | 100 |
+| Candidate responses to clients | 0 |
+| Failed requests | 0 |
+| NGINX errors reported | 0 |
+| Health check | Healthy |
+
+The shadow candidate received mirrored traffic without
+affecting the production responses during the test.
+
