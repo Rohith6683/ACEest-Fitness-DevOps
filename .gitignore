@@ -3,3 +3,14 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 .env
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+
+# SonarQube generated files
+.scannerwork/
+
+# Generated artifacts
+aceest-image.tar
