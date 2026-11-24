@@ -48,3 +48,9 @@ def test_reject_invalid_member(client):
 def test_get_missing_member(client):
     response = client.get("/members/999")
     assert response.status_code == 404
+
+
+def test_plans(client):
+    response = client.get("/plans")
+    assert response.status_code == 200
+    assert "Monthly" in response.get_json()

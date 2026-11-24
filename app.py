@@ -11,7 +11,7 @@ def home():
     return jsonify({
         "application": "ACEest Fitness & Gym",
         "status": "running",
-        "version": "1.0"
+        "version": "1.1"
     })
 
 
@@ -62,6 +62,12 @@ def get_member(member_id):
         return jsonify({"error": "Member not found"}), 404
 
     return jsonify(member), 200
+
+
+
+@app.route("/plans")
+def get_plans():
+    return jsonify(["Monthly", "Quarterly", "Annual"]), 200
 
 
 if __name__ == "__main__":
